@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { TaskProvider } from "./context/TaskContext";
+import CalendarPage from "./pages/CalendarPage";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <TaskProvider>
+      <CalendarPage />
+
+      <ToastContainer
+        position="top-right"       // position of toast
+        autoClose={3000}           // auto hide after 3 seconds
+        hideProgressBar={false}    // show progress bar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    </TaskProvider>
   );
 }
 
