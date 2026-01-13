@@ -203,10 +203,27 @@ const CalendarView = () => {
                         <div style={gridStyle}>
                             <EditableField label="Title" value={selectedTask.title} onChange={(v) => handleChange("title", v)} />
                             <EditableField label="Platform" value={selectedTask.platform} type="select" options={["Instagram", "Facebook", "LinkedIn"]} onChange={(v) => handleChange("platform", v)} />
+                            <EditableField
+                                label="Content Type"
+                                value={selectedTask.contentType}
+                                type="select"
+                                options={["Post", "Video", "Story Hook"]}
+                                onChange={(v) => handleChange("contentType", v)}
+                            />
                             <EditableField label="Image URL" value={selectedTask.postUrl} onChange={(v) => handleChange("postUrl", v)} />
-                            <EditableField label="Post URL" value={selectedTask.url} onChange={(v) => handleChange("url", v)} />
                             <EditableField label="Video URL" value={selectedTask.videourl} onChange={(v) => handleChange("videourl", v)} />
                             <EditableField label="Status" value={selectedTask.status} type="select" options={Object.keys(statusColors)} onChange={(v) => handleChange("status", v)} />
+                            <EditableField label="Post URL" value={selectedTask.url} onChange={(v) => handleChange("url", v)} />
+                        </div>
+
+                        <div style={{ marginTop: "15px", width: "780px", }}>
+                            <label style={{ fontWeight: 600 }}>Caption</label>
+                            <textarea
+                                value={selectedTask.caption || ""}
+                                onChange={(e) => handleChange("caption", e.target.value)}
+                                rows={4}
+                                style={{ ...inputStyle, resize: "vertical" }}
+                            />
                         </div>
 
                         <div style={{ marginTop: "15px", width: "780px", }}>
