@@ -163,12 +163,33 @@ const CalendarView = () => {
         }
     };
 
+    const handleEventDrop = async (info) => {
+        const taskId = info.event.id;
+        const newStartDate = info.event.startStr;
+
+        try {
+            // Update backend
+            await axios.put(`${API_URL}/api/tasks/${taskId}`, {
+                start: newStartDate,
+            });
+
+            // Update context/state
+            updateTask(taskId, { start: newStartDate });
+
+            toast.success("Task date updated!");
+        } catch (error) {
+            info.revert(); // 👈 rollback UI change
+            toast.error("Failed to update task date");
+        }
+    };
+
     return (
         <div>
             <FullCalendar
                 plugins={[dayGridPlugin, interactionPlugin]}
                 initialView="dayGridMonth"
                 selectable
+                editable
                 events={tasks.map((task) => ({
                     id: task._id,
                     title: task.title,
@@ -193,6 +214,7 @@ const CalendarView = () => {
                     const task = tasks.find((t) => t._id === info.event.id);
                     setSelectedTask(task);
                 }}
+                eventDrop={handleEventDrop}
             />
 
             <Modal isOpen={!!selectedTask} onRequestClose={() => setSelectedTask(null)} style={modalStyle}>
